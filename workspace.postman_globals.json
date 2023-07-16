@@ -1,0 +1,36 @@
+{
+	"id": "cfea1bdc-3aee-4df1-8806-e273045d9512",
+	"values": [
+		{
+			"key": "trello_url",
+			"value": "https://api.trello.com/1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "trello_key",
+			"value": "bd9b27f601ebd75923fb792c923b746b",
+			"enabled": true
+		},
+		{
+			"key": "trello_token",
+			"value": "ATTA1106fae7da67a1448a978e07f0f0da30246782fa26320c7a556b8a1f0626e90f88FF3528",
+			"enabled": true
+		},
+		{
+			"key": "board_id",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "jobCafe_url",
+			"value": "http://api.jobka.net:8081",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2023-07-16T21:52:16.739Z",
+	"_postman_exported_using": "Postman/10.15.4"
+}

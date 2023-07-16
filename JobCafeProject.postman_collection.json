@@ -1,0 +1,473 @@
+{
+	"info": {
+		"_postman_id": "18fa4045-7279-42e1-8102-6e85d07bc0ed",
+		"name": "JobCafeProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25555772"
+	},
+	"item": [
+		{
+			"name": "PositiveTests",
+			"item": [
+				{
+					"name": "GetJobsByLocation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code test\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test if json content is array\", ()=> {\r",
+									"    pm.expect(jsonResponse.content).to.be.an(\"array\");\r",
+									"\r",
+									"    for(let i = 0; i < jsonResponse.content.length; i++) {\r",
+									"        pm.test(`Serch results #${i+1} job details test`, () => {\r",
+									"            pm.expect(jsonResponse.content[i].location).to.eq(\"Toronto, ON, Canada\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include id\").to.have.any.keys(\"id\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include position\").to.have.any.keys(\"position\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include company\").to.have.any.keys(\"company\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include seniority\").to.have.any.keys(\"seniority\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include link\").to.have.any.keys(\"link\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include description\").to.have.any.keys(\"description\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include salary\").to.have.any.keys(\"salary\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include date\").to.have.any.keys(\"date\");\r",
+									"        });\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jobCafe_url}}/jobs?location=Toronto",
+							"host": [
+								"{{jobCafe_url}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "Toronto"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchWithNoParamsTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code test\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test if json content is array\", () => {\r",
+									"    pm.expect(jsonResponse.content).to.be.an(\"array\");\r",
+									"\r",
+									"    for(let i = 0; i < jsonResponse.content.length; i++) {\r",
+									"        pm.test(`Serch results #${i+1} job details test`, () => {\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include id\").to.have.any.keys(\"id\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include position\").to.have.any.keys(\"position\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include company\").to.have.any.keys(\"company\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include location\").to.have.any.keys(\"location\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include seniority\").to.have.any.keys(\"seniority\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include link\").to.have.any.keys(\"link\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include description\").to.have.any.keys(\"description\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include salary\").to.have.any.keys(\"salary\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include date\").to.have.any.keys(\"date\");\r",
+									"        });\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jobCafe_url}}/jobs",
+							"host": [
+								"{{jobCafe_url}}"
+							],
+							"path": [
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetJobsByPosition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code test\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Test if json content is array\", () => {\r",
+									"    pm.expect(jsonResponse.content).to.be.an(\"array\");\r",
+									"\r",
+									"    for(let i = 0; i < jsonResponse.content.length; i++){\r",
+									"        pm.test(`Serch results #${i+1} job details test`, () => {\r",
+									"            pm.expect(jsonResponse.content[i].position).to.include(\"QA\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include id\").to.have.any.keys(\"id\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include company\").to.have.any.keys(\"company\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include location\").to.have.any.keys(\"location\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include seniority\").to.have.any.keys(\"seniority\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include link\").to.have.any.keys(\"link\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include description\").to.have.any.keys(\"description\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include salary\").to.have.any.keys(\"salary\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include date\").to.have.any.keys(\"date\");\r",
+									"        });\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jobCafe_url}}/jobs?position=QA",
+							"host": [
+								"{{jobCafe_url}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "position",
+									"value": "QA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CombineSerchTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code test\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Test if json content is array\", () => {\r",
+									"    pm.expect(jsonResponse.content).to.be.an(\"array\");\r",
+									"\r",
+									"    for(let i = 0; i < jsonResponse.content.length; i++){\r",
+									"        pm.test(`Serch results #${i+1} job details test`, () => {\r",
+									"            pm.expect(jsonResponse.content[i].company).to.eq(\"Amazon\");\r",
+									"            pm.expect(jsonResponse.content[i].location).to.eq(\"Vancouver, BC, Canada\");\r",
+									"            pm.expect(jsonResponse.content[i].position).to.include(\"iOS Engineer\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include id\").to.have.any.keys(\"id\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include seniority\").to.have.any.keys(\"seniority\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include link\").to.have.any.keys(\"link\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include description\").to.have.any.keys(\"description\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include salary\").to.have.any.keys(\"salary\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include date\").to.have.any.keys(\"date\");\r",
+									"        });\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jobCafe_url}}/jobs?company=Amazon&location=Vancouver&position=iOS Engineer",
+							"host": [
+								"{{jobCafe_url}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "Amazon"
+								},
+								{
+									"key": "location",
+									"value": "Vancouver"
+								},
+								{
+									"key": "position",
+									"value": "iOS Engineer"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetJobsByDate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code test\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Test if json content is array\", () => {\r",
+									"    pm.expect(jsonResponse.content).to.be.an(\"array\");\r",
+									"\r",
+									"    for(let i = 0; i < jsonResponse.content.length; i++){\r",
+									"        pm.test(`Serch results #${i+1} job details test`, () => {\r",
+									"            pm.expect(jsonResponse.content[i].date).to.include(\"2023-05-11\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include id\").to.have.any.keys(\"id\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include company\").to.have.any.keys(\"company\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include location\").to.have.any.keys(\"location\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include seniority\").to.have.any.keys(\"seniority\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include link\").to.have.any.keys(\"link\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include description\").to.have.any.keys(\"description\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include salary\").to.have.any.keys(\"salary\");\r",
+									"        });\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jobCafe_url}}/jobs?date=2023-05-11",
+							"host": [
+								"{{jobCafe_url}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2023-05-11"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetJobsByCompany",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code test\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Test if json content is array\", () => {\r",
+									"    pm.expect(jsonResponse.content).to.be.an(\"array\");\r",
+									"\r",
+									"    for(let i = 0; i < jsonResponse.content.length; i++){\r",
+									"        pm.test(`Serch results #${i+1} job details test`, () => {\r",
+									"            pm.expect(jsonResponse.content[i].company).to.include(\"Apple\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include id\").to.have.any.keys(\"id\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include location\").to.have.any.keys(\"location\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include seniority\").to.have.any.keys(\"seniority\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include link\").to.have.any.keys(\"link\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include description\").to.have.any.keys(\"description\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include salary\").to.have.any.keys(\"salary\");\r",
+									"            pm.expect(jsonResponse.content[i], \"Err: Job details not include date\").to.have.any.keys(\"date\");\r",
+									"        });\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jobCafe_url}}/jobs?company=Apple",
+							"host": [
+								"{{jobCafe_url}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "Apple"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "NegativeTests",
+			"item": [
+				{
+					"name": "NoSerchResultsTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code test\", () => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jobCafe_url}}/jobs?location=Toros",
+							"host": [
+								"{{jobCafe_url}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "Toros"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WrongJobsEndpointTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code test\", function(){\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jobCafe_url}}/job",
+							"host": [
+								"{{jobCafe_url}}"
+							],
+							"path": [
+								"job"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Performance tests",
+			"item": [
+				{
+					"name": "ResponseTimeTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 2000ms\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jobCafe_url}}/jobs?company=Amazon&location=Vancouver&position=iOS Engineer",
+							"host": [
+								"{{jobCafe_url}}"
+							],
+							"path": [
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "company",
+									"value": "Amazon"
+								},
+								{
+									"key": "location",
+									"value": "Vancouver"
+								},
+								{
+									"key": "position",
+									"value": "iOS Engineer"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
